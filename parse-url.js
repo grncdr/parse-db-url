@@ -17,6 +17,12 @@ module.exports = function parseDbUrl (dbUrl) {
   // Trim leading slash for non-sqlite3 databases
   if (adapter !== 'sqlite3' && database) {
     var database = database.substring(1)
+  } else if (adapter == 'sqlite3' && database) {
+    // Remove any '%20' with real spaces so the database
+    // path is a true file path that the sqlite3 adapter
+    // can use (i.e., /Users/jdoe/Library/Application Support/myapp/mydatabase.sqlitedb)
+    // Fixes: https://github.com/grncdr/parse-db-url/issues/1
+    var database = database.replace('%20', ' ')
   }
 
   if (parsed.port) {
