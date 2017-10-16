@@ -22,7 +22,7 @@ module.exports = function parseDbUrl (dbUrl) {
     // path is a true file path that the sqlite3 adapter
     // can use (i.e., /Users/jdoe/Library/Application Support/myapp/mydatabase.sqlitedb)
     // Fixes: https://github.com/grncdr/parse-db-url/issues/1
-    var database = database.replace('%20', ' ')
+    var database = database.replace(/\%20/g, ' ')
   }
 
   if (parsed.port) {
